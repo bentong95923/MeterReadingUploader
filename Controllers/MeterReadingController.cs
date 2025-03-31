@@ -1,6 +1,6 @@
 ﻿using CsvHelper;
 using MeterReadingUploader.Dtos;
-using MeterReadingUploader.Persistence.Entities;
+using MeterReadingUploader.Persistence.Context;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 
@@ -10,6 +10,13 @@ namespace MeterReadingUploader.Controllers
     [ApiController]
     public class MeterReadingController : ControllerBase
     {
+        private readonly AppDbContext _context;
+
+        public MeterReadingController(AppDbContext appDbContext)
+        {
+            _context = appDbContext;
+        }
+
         [HttpPost]
         [Route("meter-reading-uploads")]
         public IActionResult Upload(IFormFile file)
@@ -23,6 +30,7 @@ namespace MeterReadingUploader.Controllers
                     // Save records to database
                 }
             }
+            var customer = _context.CustomerAccounts.ToList();
             return Ok("hi");
         }
     }
