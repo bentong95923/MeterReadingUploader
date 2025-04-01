@@ -1,37 +1,77 @@
 ﻿using CsvHelper;
 using MeterReadingUploader.Dtos;
-using MeterReadingUploader.Persistence.Context;
+using MeterReadingUploader.Mappers;
+using MeterReadingUploader.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 
 namespace MeterReadingUploader.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/")]
     [ApiController]
     public class MeterReadingController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly MeterReadingService _meterReadingsService;
 
-        public MeterReadingController(AppDbContext appDbContext)
+        public MeterReadingController(MeterReadingService meterReadingsService)
         {
-            _context = appDbContext;
+            _meterReadingsService = meterReadingsService;
         }
 
         [HttpPost]
         [Route("meter-reading-uploads")]
-        public IActionResult Upload(IFormFile file)
+        [ProducesResponseType(typeof(MeterReadingResponse), 200)]
+        [ProducesResponseType(typeof(MeterReadingResponse), 400)]
+        [Produces("application/json")]
+        public IActionResult Upload(IFormFile? file)
         {
+            if (file == null)
+            {
+                return BadRequest(new MeterReadingResponse()
+                {
+                    Message = "No file was uploaded.",
+                    Success = false
+                });
+            }
+            var readings = new List<MeterReadingDto>();
+            // Read the uploaded csv file
             using (var reader = new StreamReader(file.OpenReadStream()))
             {
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
-                    csv.Context.RegisterClassMap<MeterReadingDtoMap>();
-                    var records = csv.GetRecords<MeterReadingDto>().ToList();
-                    // Save records to database
+                    // Parse the csv file into a list of MeterReadingDto objects
+                    csv.Context.RegisterClassMap<MeterReadingDtoCsvHelperMapper>();
+                    try
+                    {
+                        readings = csv.GetRecords<MeterReadingDto>().ToList();
+                    }
+                    catch (Exception)
+                    {
+                        return BadRequest(new MeterReadingResponse()
+                        {
+                            Message = $"The file cannot be processed. Please ensure the content of the file is in the correct format, or have at least one entry in the CSV file.",
+                            Success = false
+                        });
+                    }
                 }
             }
-            var customer = _context.CustomerAccounts.ToList();
-            return Ok("hi");
+            // Validate the records
+            (var validCount, var invalidCount) = _meterReadingsService.Validate(readings);
+            if (invalidCount > 0)
+            {
+                return BadRequest(new MeterReadingResponse()
+                {
+                    Message = $"Received {readings.Count} readings, where {validCount} are valid and {invalidCount} are invalid.",
+                    Success = false
+                });
+            }
+            // Store in the database
+            _meterReadingsService.StoreReadings(readings);
+            return Ok(new MeterReadingResponse()
+            {
+                Message = $"Received {readings.Count} readings. All processed and stored in the system.",
+                Success = true
+            });
         }
     }
 }

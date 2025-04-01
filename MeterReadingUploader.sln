@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35201.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeterReadingUploader", "MeterReadingUploader.csproj", "{ACE088B6-4013-49C9-AA2B-43B7F9DE9A40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeterReadingUploader", "MeterReadingUploader.csproj", "{ACE088B6-4013-49C9-AA2B-43B7F9DE9A40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

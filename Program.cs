@@ -1,4 +1,5 @@
 using MeterReadingUploader.Persistence.Context;
+using MeterReadingUploader.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>();
+builder.Services.AddScoped<MeterReadingService>();
 
 var app = builder.Build();
 
