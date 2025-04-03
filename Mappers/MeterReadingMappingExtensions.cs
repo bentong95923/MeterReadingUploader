@@ -15,10 +15,13 @@ namespace MeterReadingUploader.Mappers
             };
         }
 
+        // We are assuming that the AccountId and DateTime are not null,
+        // and that the ReadValue is a string of 5 digits
         public static MeterReading ToEntity(this MeterReadingDto meterReadingDto)
         {
             return new MeterReading
             {
+                Id = Guid.NewGuid(),
                 AccountId = meterReadingDto.AccountId,
                 DateTime = meterReadingDto.DateTime,
                 ReadValue = int.Parse(meterReadingDto.ReadValue)

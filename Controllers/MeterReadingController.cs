@@ -11,9 +11,9 @@ namespace MeterReadingUploader.Controllers
     [ApiController]
     public class MeterReadingController : ControllerBase
     {
-        private readonly MeterReadingService _meterReadingsService;
+        private readonly IMeterReadingService _meterReadingsService;
 
-        public MeterReadingController(MeterReadingService meterReadingsService)
+        public MeterReadingController(IMeterReadingService meterReadingsService)
         {
             _meterReadingsService = meterReadingsService;
         }
@@ -49,7 +49,7 @@ namespace MeterReadingUploader.Controllers
                     {
                         return BadRequest(new MeterReadingResponse()
                         {
-                            Message = $"The file cannot be processed. Please ensure the content of the file is in the correct format, or have at least one entry in the CSV file.",
+                            Message = $"The file cannot be processed. Please ensure the content of the file is in the correct format, or have at least one filled entry in the CSV file.",
                             Success = false
                         });
                     }
@@ -61,7 +61,7 @@ namespace MeterReadingUploader.Controllers
             {
                 return BadRequest(new MeterReadingResponse()
                 {
-                    Message = $"Received {readings.Count} readings, where {validCount} are valid and {invalidCount} are invalid.",
+                    Message = $"Processed {readings.Count} reading(s), where {validCount} valid and {invalidCount} invalid.",
                     Success = false
                 });
             }
@@ -69,7 +69,7 @@ namespace MeterReadingUploader.Controllers
             _meterReadingsService.StoreReadings(readings);
             return Ok(new MeterReadingResponse()
             {
-                Message = $"Received {readings.Count} readings. All processed and stored in the system.",
+                Message = $"Successfully uploaded and processed {readings.Count} reading(s).",
                 Success = true
             });
         }

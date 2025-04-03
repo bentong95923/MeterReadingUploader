@@ -5,9 +5,9 @@ namespace MeterReadingUploader.Persistence.Context
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<MeterReading> MeterReadings { get; set; }
+        public virtual DbSet<MeterReading> MeterReadings { get; set; }
 
-        public DbSet<CustomerAccount> CustomerAccounts { get; set; }
+        public virtual DbSet<CustomerAccount> CustomerAccounts { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {

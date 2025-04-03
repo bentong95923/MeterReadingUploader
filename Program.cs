@@ -11,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>();
-builder.Services.AddScoped<MeterReadingService>();
+builder.Services.AddScoped<IMeterReadingService, MeterReadingService>();
 
 var app = builder.Build();
 
