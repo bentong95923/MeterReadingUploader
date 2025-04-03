@@ -5,7 +5,7 @@ VisualStudioVersion = 17.10.35201.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeterReadingUploader", "MeterReadingUploader.csproj", "{ACE088B6-4013-49C9-AA2B-43B7F9DE9A40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeterReadingUploaderTests", "..\MeterReadingUploaderTests\MeterReadingUploaderTests.csproj", "{E7175F62-F03A-4CBA-BEC2-4AFFB87C1C13}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeterReadingUploaderTests", "..\MeterReadingUploaderTests\MeterReadingUploaderTests.csproj", "{EE7AB173-1B02-676F-9C66-3A656758C518}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{ACE088B6-4013-49C9-AA2B-43B7F9DE9A40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACE088B6-4013-49C9-AA2B-43B7F9DE9A40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACE088B6-4013-49C9-AA2B-43B7F9DE9A40}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E7175F62-F03A-4CBA-BEC2-4AFFB87C1C13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E7175F62-F03A-4CBA-BEC2-4AFFB87C1C13}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E7175F62-F03A-4CBA-BEC2-4AFFB87C1C13}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E7175F62-F03A-4CBA-BEC2-4AFFB87C1C13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE7AB173-1B02-676F-9C66-3A656758C518}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE7AB173-1B02-676F-9C66-3A656758C518}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE7AB173-1B02-676F-9C66-3A656758C518}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE7AB173-1B02-676F-9C66-3A656758C518}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
